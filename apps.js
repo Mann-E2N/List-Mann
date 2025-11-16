@@ -47,14 +47,20 @@ function addTaskToList(task) {
   taskButtons.appendChild(editBtn);
   taskButtons.appendChild(deleteBtn);
 
-  // Tombol hapus
-  deleteBtn.addEventListener("click", function () {
-    let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-    tasks = tasks.filter(t => t.createdAt !== task.createdAt);
-    localStorage.setItem("tasks", JSON.stringify(tasks));
-    li.style.animation = "fadeOut 0.3s forwards";
-    setTimeout(() => li.remove(), 300);
-  });
+  
+// Tombol hapus
+deleteBtn.addEventListener("click", function () {
+  const yakin = confirm("Apakah Anda yakin ingin menghapus tugas ini?");
+
+  if (!yakin) return; // batal hapus
+
+  let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+  tasks = tasks.filter(t => t.createdAt !== task.createdAt);
+  localStorage.setItem("tasks", JSON.stringify(tasks));
+
+  li.style.animation = "fadeOut 0.3s forwards";
+  setTimeout(() => li.remove(), 300);
+});
 
   // Tombol edit
   editBtn.addEventListener("click", function () {
